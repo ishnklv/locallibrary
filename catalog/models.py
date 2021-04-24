@@ -57,10 +57,14 @@ class Author(models.Model):
     date_of_death = models.DateField('Died', null=True, blank=True)
 
     def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
         return reverse('author-detail', args=[str(self.id)])
 
     def __str__(self):
         return '%s, %s' % (self.last_name, self.first_name)
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
 
 class Language(models.Model):
     name = models.CharField(max_length=200, help_text="Print language of the book")
