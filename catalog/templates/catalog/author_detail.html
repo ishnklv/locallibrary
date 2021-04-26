@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  {% if author %}
+  <h1>Authors: {{ author.last_name }}, {{ author.first_name }}</h1>
+  <p> {{ author.date_of_birth }} - {{ author.date_of_death }} </p>
+    <h2>Books</h2>
+    <dl>
+      {% for book in author.book_set.all %}
+        <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.all.count}})</dt>
+        <dd>{{book.summary}}</dd>
+      {% endfor %}
+    </dl>
+  {% else %}
+    <p>Don't exist author</p>
+  {% endif %}
+{% endblock %}
